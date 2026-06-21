@@ -44,6 +44,14 @@ document.addEventListener('DOMContentLoaded', () => {
   let simDuration = 120; // 2 minutes default for simulation
   let canvasContext = visualizerCanvas.getContext('2d');
   let animationFrameId = null;
+  // Web Audio API analyser
+  let audioContext = null;
+  let analyser = null;
+  let analyserDataArray = null;
+  let sourceNode = null;
+  let analyserEnabled = false;
+  let analyserSilentFrames = 0;
+  let analyserSilentWarned = false;
   
   // Active filter state
   let currentFilter = 'all';
@@ -82,6 +90,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const src = song.imageUrl || '';
     if (!src) return '';
     return `<div class="p-4"><img src="${src}" alt="Gambar ${song.title}" class="w-full h-36 object-cover rounded-lg shadow-md"></div>`;
+  }
+
+  function parseDuration(durationText) {
+    const parts = durationText.split(':').map(part => parseInt(part, 10));
+    if (parts.length === 2 && !Number.isNaN(parts[0]) && !Number.isNaN(parts[1])) {
+      return (parts[0] * 60) + parts[1];
+    }
+    return 0;
+  }
+
+  function formatDuration(seconds) {
+    if (!seconds || isNaN(seconds) || seconds <= 0) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   }
 
   // Init
@@ -212,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function setupPlayer(index, autoPlay = true) {
     currentSongIndex = index;
     const song = marchingSongs[currentSongIndex];
+    console.debug('[player] setupPlayer index=', index, 'id=', song.id, 'audioUrl=', song.audioUrl);
     
     // Update player labels
     playerTitle.textContent = song.title;
@@ -236,19 +260,35 @@ document.addEventListener('DOMContentLoaded', () => {
     if (song.audioUrl && song.audioUrl.trim() !== '') {
       // Direct Web Audio Playback
       audio.src = song.audioUrl;
+      console.debug('[player] set audio.src ->', audio.src);
       audio.load();
-      playerDuration.textContent = song.duration;
+      // Prefer duration declared in data.js; otherwise show placeholder until metadata loads
+      const expectedSeconds = parseDuration(song.duration);
+      if (expectedSeconds > 0) {
+        playerDuration.textContent = song.duration;
+      } else {
+        playerDuration.textContent = '0:00';
+      }
       playerNotice.classList.add('hidden');
       
       // Update Volume
       audio.volume = playerVolumeSlider.value / 100;
       
+      // Prepare analyser for real audio
+      setupAnalyser();
+      audio.addEventListener('error', (ev) => {
+        console.error('[player] audio element error', ev, 'src=', audio.src);
+      });
       if (autoPlay) {
+        // Resume audio context on user gesture if needed
+        if (audioContext && audioContext.state === 'suspended') {
+          audioContext.resume().catch(() => {});
+        }
         audio.play().then(() => {
           isPlaying = true;
           updatePlayerUIState();
         }).catch(err => {
-          console.error("Audio playback error: ", err);
+          console.error("Audio playback error: ", err, 'audio.src=', audio.src, 'audioContext=', audioContext && audioContext.state);
           fallbackToSimulation(song, autoPlay);
         });
       } else {
@@ -257,6 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } else {
       // If user hasn't set audio url, fallback to simulated playback
+      teardownAnalyser();
       fallbackToSimulation(song, autoPlay);
     }
   }
@@ -274,10 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Set duration based on static duration
     playerDuration.textContent = song.duration;
-    
-    // Parse duration string "MM:SS" into seconds
-    const parts = song.duration.split(':');
-    simDuration = (parseInt(parts[0]) * 60) + parseInt(parts[1]);
+    simDuration = parseDuration(song.duration);
     simCurrentTime = 0;
     
     if (autoPlay) {
@@ -305,6 +343,65 @@ document.addEventListener('DOMContentLoaded', () => {
       updateSimulationUI();
     }, 1000);
   }
+
+  function setupAnalyser() {
+    try {
+      if (!window.AudioContext && !window.webkitAudioContext) {
+        analyserEnabled = false;
+        return;
+      }
+      if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+      // Only create a MediaElementSource once per audio element. Reuse if already created.
+      if (!sourceNode) {
+        try {
+          sourceNode = audioContext.createMediaElementSource(audio);
+        } catch (createErr) {
+          console.warn('createMediaElementSource failed — source may already exist elsewhere', createErr);
+          analyserEnabled = false;
+          return;
+        }
+      }
+
+      // Create analyser if not present and connect
+      if (!analyser) {
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 256;
+        analyserDataArray = new Uint8Array(analyser.frequencyBinCount);
+        try {
+          sourceNode.connect(analyser);
+          analyser.connect(audioContext.destination);
+        } catch (connErr) {
+          console.warn('Analyser connect failed, falling back to direct connect', connErr);
+          try {
+            // Ensure audio still reaches output by connecting source directly
+            sourceNode.connect(audioContext.destination);
+          } catch (directErr) {
+            console.warn('Direct connect also failed', directErr);
+            analyserEnabled = false;
+            return;
+          }
+        }
+      }
+
+      analyserEnabled = true;
+    } catch (err) {
+      console.warn('Analyser setup failed', err);
+      analyserEnabled = false;
+    }
+  }
+
+  function teardownAnalyser() {
+    try {
+      // Do not destroy sourceNode (createMediaElementSource can only be called once per element).
+      if (analyser) {
+        try { analyser.disconnect(); } catch (e) {}
+        analyser = null;
+      }
+    } catch (e) {}
+    analyserDataArray = null;
+    analyserEnabled = false;
+  }
   
   function updateSimulationUI() {
     // Current Time Formatter
@@ -318,6 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function playSong(index) {
+    console.debug('[player] playSong index=', index);
     setupPlayer(index, true);
     // Smooth scroll to player if visible/needed
     const playerSection = document.getElementById('global-music-player');
@@ -359,6 +457,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // Play
       isPlaying = true;
       if (hasRealAudio) {
+        if (audioContext && audioContext.state === 'suspended') {
+          audioContext.resume().catch(() => {});
+        }
         audio.play().then(() => {
           updatePlayerUIState();
         }).catch(err => {
@@ -398,9 +499,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickPercentage = clickX / width;
     
     const currentSong = marchingSongs[currentSongIndex];
+    const expectedDuration = parseDuration(currentSong.duration);
     const hasRealAudio = currentSong.audioUrl && currentSong.audioUrl.trim() !== '';
     
-    if (hasRealAudio && audio.duration) {
+    if (hasRealAudio && expectedDuration > 0) {
+      const targetTime = clickPercentage * expectedDuration;
+      audio.currentTime = targetTime;
+      playerCurrentTime.textContent = `${Math.floor(targetTime / 60)}:${(Math.floor(targetTime % 60) < 10 ? '0' : '')}${Math.floor(targetTime % 60)}`;
+      playerProgress.style.width = `${Math.min(clickPercentage * 100, 100)}%`;
+    } else if (hasRealAudio && audio.duration) {
       audio.currentTime = clickPercentage * audio.duration;
     } else {
       // Mock simulation jump
@@ -414,10 +521,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   // Real HTML5 Audio listeners
+  audio.addEventListener('loadedmetadata', () => {
+    const currentSong = marchingSongs[currentSongIndex];
+    const expected = parseDuration(currentSong.duration);
+    if (expected && expected > 0) {
+      // Keep the declared duration from data.js
+      playerDuration.textContent = currentSong.duration;
+    } else if (audio.duration) {
+      // Fallback to actual audio file duration
+      playerDuration.textContent = formatDuration(Math.floor(audio.duration));
+    }
+  });
   audio.addEventListener('timeupdate', () => {
-    if (audio.duration) {
-      const progressPercent = (audio.currentTime / audio.duration) * 100;
-      playerProgress.style.width = `${progressPercent}%`;
+    const currentSong = marchingSongs[currentSongIndex];
+    const durationSeconds = parseDuration(currentSong.duration) || audio.duration;
+    if (durationSeconds && audio.duration) {
+      const progressPercent = (audio.currentTime / durationSeconds) * 100;
+      playerProgress.style.width = `${Math.min(progressPercent, 100)}%`;
       
       const currentMin = Math.floor(audio.currentTime / 60);
       const currentSec = Math.floor(audio.currentTime % 60);
@@ -548,36 +668,82 @@ document.addEventListener('DOMContentLoaded', () => {
     const barGap = 3;
     const numBars = Math.floor(width / (barWidth + barGap));
     const time = Date.now() * 0.003;
-    
-    // Draw centered wave
+    if (analyserEnabled && analyser && analyserDataArray) {
+      // Use frequency data from the analyser
+      analyser.getByteFrequencyData(analyserDataArray);
+      // Detect CORS / file:// zeroed output: if analyser returns near-zero repeatedly, fallback to simulated wave
+      let total = 0;
+      for (let k = 0; k < analyserDataArray.length; k++) total += analyserDataArray[k];
+      const avgTotal = total / analyserDataArray.length;
+      if (avgTotal < 1) {
+        analyserSilentFrames++;
+      } else {
+        analyserSilentFrames = 0;
+        analyserSilentWarned = false;
+      }
+      if (analyserSilentFrames > 6) {
+        if (!analyserSilentWarned) {
+          console.warn('[analyser] Detected near-zero frequency data; likely CORS/file:// restrictions. Falling back to simulated visualizer.');
+          analyserSilentWarned = true;
+        }
+        // fall through to simulated rendering below
+      } else {
+        const binSize = Math.max(1, Math.floor(analyserDataArray.length / numBars));
+        for (let i = 0; i < numBars; i++) {
+          const start = i * binSize;
+          let sum = 0;
+          for (let j = 0; j < binSize; j++) {
+            sum += analyserDataArray[start + j] || 0;
+          }
+          const avg = sum / binSize; // 0-255
+          // Scale to canvas height with a small base
+          const barHeight = 4 + (avg / 255) * (height - 10);
+          const x = i * (barWidth + barGap);
+          const y = (height - barHeight) / 2;
+
+          const grad = canvasContext.createLinearGradient(x, y, x, y + barHeight);
+          grad.addColorStop(0, '#f6e095');
+          grad.addColorStop(0.5, '#c59b27');
+          grad.addColorStop(1, '#5c0620');
+
+          canvasContext.fillStyle = grad;
+          canvasContext.beginPath();
+          canvasContext.roundRect(x, y, barWidth, barHeight, 2);
+          canvasContext.fill();
+        }
+        // rendered analyser frame; skip simulated fallback
+        return;
+      }
+    }
+    // Fallback visual (simulated wave)
     for (let i = 0; i < numBars; i++) {
       let barHeight = 4; // Flat base when not playing
-      
+
       if (isPlaying) {
         // Multi-frequency wave calculation (combination of sine waves + noise)
         const factor1 = Math.sin(i * 0.15 + time * 1.5);
         const factor2 = Math.cos(i * 0.05 - time * 2.2);
         const factor3 = Math.sin(i * 0.3 + time * 4.0);
-        
+
         let amplitude = (factor1 * 0.4 + factor2 * 0.4 + factor3 * 0.2);
         amplitude = Math.abs(amplitude);
-        
+
         // Boost center bars slightly for visual aesthetic
         const centerOffset = Math.abs(i - (numBars / 2)) / (numBars / 2);
         const centerBoost = 1 - centerOffset;
-        
+
         barHeight = 5 + (amplitude * (height - 15) * (0.4 + centerBoost * 0.6));
       }
-      
+
       const x = i * (barWidth + barGap);
       const y = (height - barHeight) / 2;
-      
+
       // Brass golden gradient
       const grad = canvasContext.createLinearGradient(x, y, x, y + barHeight);
       grad.addColorStop(0, '#f6e095'); // light gold
       grad.addColorStop(0.5, '#c59b27'); // core gold
       grad.addColorStop(1, '#5c0620'); // deep crimson at bottom
-      
+
       canvasContext.fillStyle = grad;
       canvasContext.beginPath();
       // Draw rounded pill bars

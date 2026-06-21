@@ -226,7 +226,7 @@ Mari berbaris, mari berbaris! Semoga darah kotor mengairi ladang kita!`
     flagUrl: "https://flagcdn.com/w80/fr.png",
     era: "Lorem Ipsum Era",
     category: "Lorem Ipsum March",
-    duration: "3:00",
+    duration: "2:13",
     audioUrl: "src/audio/La Victoire est à Nous (Victory is ours) French Napoleonic Military March–Fanfare [HQ] - Mattia von Sigmund.mp3",
     imageUrl: "src/image/Napoleon.jpg",
     bannerUrl: "src/image/NapoleonFranceFlag.jpg",
