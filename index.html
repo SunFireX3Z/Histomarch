@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echoes of the March - Sejarah Lagu Marching Dunia</title>
+    <!-- Meta SEO -->
+    <meta name="description" content="Jelajahi sejarah mendalam, fakta menarik, lirik, dan audio dari lagu-lagu marching militer legendaris dunia seperti Preußens Gloria, The British Grenadiers, Yankee Doodle, dan lainnya.">
+    <!-- Tailwind v4 Output CSS -->
+    <link rel="stylesheet" href="./src/css/output.css">
+</head>
+<body class="font-sans antialiased">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 w-full glass-panel border-b border-white/5 py-4 px-6 md:px-12 flex justify-between items-center transition-all duration-300">
+        <div class="flex items-center gap-3">
+            <span class="text-3xl">🎺</span>
+            <div>
+                <h1 class="text-xl font-bold font-serif tracking-wide text-gold-gradient">Echoes of the March</h1>
+                <p class="text-[10px] text-slate-400 tracking-widest uppercase">Militaria Music Registry</p>
+            </div>
+        </div>
+        
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+            <a href="#hero" class="hover:text-brass-gold transition">Beranda</a>
+            <a href="#catalog" class="hover:text-brass-gold transition">Katalog Lagu</a>
+            <a href="#timeline" class="hover:text-brass-gold transition">Garis Waktu</a>
+            <a href="#trivia" class="hover:text-brass-gold transition">Instrumen & Trivia</a>
+        </nav>
+        
+        <div class="flex items-center gap-4">
+            <a href="#catalog" class="px-4 py-2 text-xs font-semibold bg-brass-gold text-slate-950 rounded-lg hover:bg-brass-gold-light transition shadow-lg shadow-brass-gold/10">
+                Mulai Mendengarkan
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-[85vh] flex items-center justify-center py-20 px-6 overflow-hidden">
+        <!-- Decorative subtle lights -->
+        <div class="absolute w-[500px] h-[500px] rounded-full bg-imperial-crimson/15 blur-[120px] top-1/4 left-1/4 -z-10"></div>
+        <div class="absolute w-[600px] h-[600px] rounded-full bg-prussian-blue/20 blur-[140px] bottom-1/4 right-1/4 -z-10"></div>
+        
+        <div class="max-w-4xl text-center z-10">
+            <span class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-semibold text-brass-gold-light tracking-wider uppercase mb-6 animate-pulse">
+                🎼 Arsip Musik Sejarah Militer
+            </span>
+            
+            <h2 class="text-4xl md:text-7xl font-extrabold font-serif leading-tight mb-6">
+                Ketukan Langkah <br>
+                <span class="text-gold-gradient">Pembentuk Sejarah</span>
+            </h2>
+            
+            <p class="text-base md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Dari tiupan terompet kavaleri Kekaisaran Prusia hingga seruling kayu revolusioner Amerika. Temukan kisah perjuangan, sindiran taktis, dan melodi yang membakar semangat jutaan prajurit di medan pertempuran masa lalu.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#catalog" class="w-full sm:w-auto px-8 py-3.5 bg-brass-gold text-slate-950 font-bold rounded-xl hover:bg-brass-gold-light transition duration-300 text-center shadow-lg shadow-brass-gold/20 cursor-pointer">
+                    Jelajahi Lagu Marching
+                </a>
+                <a href="#timeline" class="w-full sm:w-auto px-8 py-3.5 bg-slate-900/60 hover:bg-slate-900 border border-white/10 rounded-xl font-semibold transition duration-300 text-center cursor-pointer">
+                    Pelajari Garis Waktu
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section id="catalog" class="py-24 px-6 md:px-12 bg-slate-950 border-t border-white/5 relative">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
+                <div>
+                    <span class="text-xs text-brass-gold font-bold tracking-widest uppercase mb-2 block">Katalog March</span>
+                    <h2 class="text-3xl md:text-5xl font-bold font-serif">Koleksi Lagu Marching</h2>
+                    <p class="text-slate-400 mt-2 max-w-lg">Cari dan dengarkan melodi patriotik di bawah ini. Anda dapat menyaring lagu berdasarkan negara asal.</p>
+                </div>
+                
+                <!-- Search Box -->
+                <div class="w-full md:w-80">
+                    <div class="relative">
+                        <input type="text" id="search-input" placeholder="Cari lagu, komposer, atau negara..." 
+                               class="w-full bg-slate-900/80 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brass-gold transition">
+                        <span class="absolute left-3 top-3.5 text-slate-400 text-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters & Stats -->
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+                <div class="flex flex-wrap gap-2 text-xs">
+                    <button class="filter-btn px-4 py-2.5 rounded-lg bg-brass-gold text-slate-950 font-bold transition cursor-pointer" data-filter="all">Semua Wilayah</button>
+                    <button class="filter-btn px-4 py-2.5 rounded-lg bg-slate-900 border border-white/5 hover:bg-slate-800 text-slate-300 transition cursor-pointer" data-filter="Germany">Jerman / Prusia</button>
+                    <button class="filter-btn px-4 py-2.5 rounded-lg bg-slate-900 border border-white/5 hover:bg-slate-800 text-slate-300 transition cursor-pointer" data-filter="Britain">Inggris Raya</button>
+                    <button class="filter-btn px-4 py-2.5 rounded-lg bg-slate-900 border border-white/5 hover:bg-slate-800 text-slate-300 transition cursor-pointer" data-filter="United States">Amerika Serikat</button>
+                    <button class="filter-btn px-4 py-2.5 rounded-lg bg-slate-900 border border-white/5 hover:bg-slate-800 text-slate-300 transition cursor-pointer" data-filter="France">Prancis</button>
+                    <button class="filter-btn px-4 py-2.5 rounded-lg bg-slate-900 border border-white/5 hover:bg-slate-800 text-slate-300 transition cursor-pointer" data-filter="Austria">Austria</button>
+                </div>
+                <div id="stats-songs-count" class="text-xs text-slate-400 font-mono bg-slate-900 px-3 py-1.5 rounded-md border border-white/5">
+                    0 Songs Loaded
+                </div>
+            </div>
+
+            <!-- Songs Grid Slot -->
+            <div id="catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- App.js will inject cards here -->
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="py-24 px-6 md:px-12 bg-slate-900/40 relative">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-xs text-brass-gold font-bold tracking-widest uppercase mb-2 block">Perkembangan Era</span>
+                <h2 class="text-3xl md:text-5xl font-bold font-serif">Garis Waktu Musik Baris</h2>
+                <p class="text-slate-400 mt-2">Melihat kronologi evolusi lagu-lagu berbaris seiring perubahan geopolitik dan instrumen militer.</p>
+            </div>
+            
+            <div class="relative border-l border-white/10 ml-4 md:ml-32">
+                <!-- Timeline Item 1 -->
+                <div class="mb-12 relative pl-8 md:pl-0">
+                    <!-- Date box on larger screens -->
+                    <div class="hidden md:block absolute -left-36 top-1 text-right w-28">
+                        <span class="text-sm font-bold text-brass-gold">Akhir Abad ke-17</span>
+                        <p class="text-[10px] text-slate-400 uppercase">Evolusi Suling & Drum</p>
+                    </div>
+                    <!-- Indicator Dot -->
+                    <div class="absolute -left-2 top-2 w-4 h-4 rounded-full bg-brass-gold border-4 border-slate-950 z-10"></div>
+                    
+                    <div class="glass-panel p-6 rounded-xl md:-ml-4">
+                        <span class="md:hidden text-xs font-bold text-brass-gold block mb-2">Akhir Abad ke-17 — Suling & Drum</span>
+                        <h3 class="text-lg font-bold text-slate-200">Kelahiran Marching Tradisional Inggris</h3>
+                        <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                            Resimen infanteri Inggris mulai menggunakan melodi fife (suling kayu keras dengan nada tinggi) yang dipadukan dengan ketukan kencang snare drum militer awal. Lagu-lagu seperti <span class="text-brass-gold-light italic">The British Grenadiers</span> memberikan sinkronisasi baris di medan perang terbuka yang berkabut.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="mb-12 relative pl-8 md:pl-0">
+                    <div class="hidden md:block absolute -left-36 top-1 text-right w-28">
+                        <span class="text-sm font-bold text-brass-gold">Sekitar 1755-1780</span>
+                        <p class="text-[10px] text-slate-400 uppercase">Revolusi & Perang</p>
+                    </div>
+                    <div class="absolute -left-2 top-2 w-4 h-4 rounded-full bg-brass-gold border-4 border-slate-950 z-10"></div>
+                    
+                    <div class="glass-panel p-6 rounded-xl md:-ml-4">
+                        <span class="md:hidden text-xs font-bold text-brass-gold block mb-2">1755-1780 — Revolusi & Perang</span>
+                        <h3 class="text-lg font-bold text-slate-200">Revolusi Amerika & Perang Sindiran</h3>
+                        <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                            Musik digunakan sebagai propaganda psikologis. <span class="text-brass-gold-light italic">Yankee Doodle</span>, lagu buatan perwira Inggris untuk merendahkan milisi koloni Amerika, diadopsi dengan bangga oleh milisi kolonial di bawah pimpinan Washington untuk menyerang balik kehormatan moral musuh saat perang kemerdekaan selesai.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="mb-12 relative pl-8 md:pl-0">
+                    <div class="hidden md:block absolute -left-36 top-1 text-right w-28">
+                        <span class="text-sm font-bold text-brass-gold">Tahun 1792</span>
+                        <p class="text-[10px] text-slate-400 uppercase">Revolusi Prancis</p>
+                    </div>
+                    <div class="absolute -left-2 top-2 w-4 h-4 rounded-full bg-brass-gold border-4 border-slate-950 z-10"></div>
+                    
+                    <div class="glass-panel p-6 rounded-xl md:-ml-4">
+                        <span class="md:hidden text-xs font-bold text-brass-gold block mb-2">1792 — Revolusi Prancis</span>
+                        <h3 class="text-lg font-bold text-slate-200">Era Lagu Kebangsaan Republik Baru</h3>
+                        <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                            Semangat revolusi membara dengan lahirnya lagu perang agresif <span class="text-brass-gold-light italic">La Marseillaise</span>. Ditulis dalam satu malam untuk pasukan Rhine, melodi mars pembakar semangat ini dimotori oleh barisan sukarelawan dari Marseille saat berbaris menuju benteng kerajaan Paris untuk membebaskan rakyat jelata.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 4 -->
+                <div class="mb-12 relative pl-8 md:pl-0">
+                    <div class="hidden md:block absolute -left-36 top-1 text-right w-28">
+                        <span class="text-sm font-bold text-brass-gold">Tahun 1848 - 1871</span>
+                        <p class="text-[10px] text-slate-400 uppercase">Kejayaan Kuningan</p>
+                    </div>
+                    <div class="absolute -left-2 top-2 w-4 h-4 rounded-full bg-brass-gold border-4 border-slate-950 z-10"></div>
+                    
+                    <div class="glass-panel p-6 rounded-xl md:-ml-4">
+                        <span class="md:hidden text-xs font-bold text-brass-gold block mb-2">1848-1871 — Kejayaan Kuningan</span>
+                        <h3 class="text-lg font-bold text-slate-200">Lahirnya Imperial Brass & Orkestra Militer</h3>
+                        <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                            Penemuan katup logam (valve) pada trompet dan alat musik tiup logam melahirkan era megah orkestra militer skala penuh. Austria bangkit dengan ritme tepuk tangan dinamis <span class="text-brass-gold-light italic">Radetzky March</span> (1848), disusul kemenangan Prusia yang menelurkan parade terompet legendaris <span class="text-brass-gold-light italic">Preußens Gloria</span> (1871).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instruments Trivia Section -->
+    <section id="trivia" class="py-24 px-6 md:px-12 bg-slate-950 border-t border-white/5 relative">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="text-center mb-16">
+                <span class="text-xs text-brass-gold font-bold tracking-widest uppercase mb-2 block">Detail Organologi</span>
+                <h2 class="text-3xl md:text-5xl font-bold font-serif">Alat Musik & Budaya Marching</h2>
+                <p class="text-slate-400 mt-2">Mengenal empat pilar instrumen utama yang menjadi ruh dari musik marching sejarah dunia.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Instrument Card 1 -->
+                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-2xl mb-4">🪈</div>
+                        <h3 class="text-lg font-bold text-slate-200">Fife (Suling Militer)</h3>
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                            Suling tiup samping tradisional dari kayu yang menghasilkan nada tinggi tajam. Sangat penting di abad ke-18 karena bunyinya mampu menembus gemuruh tembakan mesiu di medan perang kolonial.
+                        </p>
+                    </div>
+                    <span class="text-[10px] text-brass-gold font-semibold uppercase tracking-wider mt-4">Frekuensi Tinggi</span>
+                </div>
+
+                <!-- Instrument Card 2 -->
+                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-2xl mb-4">🥁</div>
+                        <h3 class="text-lg font-bold text-slate-200">Snare & Tenor Drum</h3>
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                            Alat musik perkusi berkerincing logam yang menentukan tempo langkah gerak baris cepat. Menjaga kekompakan barisan infanteri agar tidak saling menabrak saat bermanuver taktis.
+                        </p>
+                    </div>
+                    <span class="text-[10px] text-brass-gold font-semibold uppercase tracking-wider mt-4">Penjaga Irama</span>
+                </div>
+
+                <!-- Instrument Card 3 -->
+                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-2xl mb-4">🎺</div>
+                        <h3 class="text-lg font-bold text-slate-200">Brass (Trompet Katup)</h3>
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                            Alat tiup logam berbahan kuningan tembaga (trompet, trombone, horn). Penemuan katup memperluas variasi melodi, memberikan nuansa heroik orkestra kerajaan di abad ke-19.
+                        </p>
+                    </div>
+                    <span class="text-[10px] text-brass-gold font-semibold uppercase tracking-wider mt-4">Melodi Heroik</span>
+                </div>
+
+                <!-- Instrument Card 4 -->
+                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center text-2xl mb-4">🎷</div>
+                        <h3 class="text-lg font-bold text-slate-200">Sousaphone (Tuba Baris)</h3>
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                            Tuba kuningan raksasa berbentuk melingkar yang dirancang oleh komposer John Philip Sousa. Memberikan frekuensi bass tebal yang dominan dalam kondisi band yang berjalan.
+                        </p>
+                    </div>
+                    <span class="text-[10px] text-brass-gold font-semibold uppercase tracking-wider mt-4">Harmoni Bass</span>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Footer Space Holder for Floating Player -->
+    <div class="h-32 bg-slate-950"></div>
+
+    <!-- Floating Global Music Player (Bottom Bar) -->
+    <section id="global-music-player" class="fixed bottom-0 left-0 right-0 z-50 glass-panel border-t border-white/5 py-4 px-6 md:px-12 shadow-2xl flex flex-col gap-3">
+        
+        <!-- Notice Alert for empty URLs -->
+        <div id="player-notice" class="hidden flex justify-center -mt-2"></div>
+        
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            <!-- Left: Current Track Details -->
+            <div class="flex items-center gap-4 w-full md:w-1/3">
+                <div class="w-12 h-12 rounded-xl bg-slate-900 flex items-center justify-center overflow-hidden border border-white/5 shadow-md shrink-0">
+                    <span id="player-flag"></span>
+                </div>
+                <div class="min-w-0">
+                    <h4 id="player-title" class="text-sm font-bold text-slate-100 truncate">Preußens Gloria</h4>
+                    <p id="player-subtitle" class="text-xs text-slate-400 truncate">Johann Gottfried Piefke (Prussia)</p>
+                </div>
+            </div>
+
+            <!-- Middle: Controls & Wave & Progress Bar -->
+            <div class="flex flex-col items-center gap-2 w-full md:w-2/5">
+                
+                <!-- Player Controls -->
+                <div class="flex items-center gap-6">
+                    <button id="player-prev" class="text-slate-400 hover:text-brass-gold transition cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.334 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z" />
+                        </svg>
+                    </button>
+                    
+                    <button id="player-play" class="w-12 h-12 rounded-full bg-brass-gold text-slate-950 flex items-center justify-center hover:scale-105 hover:bg-brass-gold-light transition duration-300 cursor-pointer shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    
+                    <button id="player-next" class="text-slate-400 hover:text-brass-gold transition cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Waveform display container -->
+                <div class="w-full relative px-1 select-none">
+                    <canvas id="visualizer-canvas" class="w-full h-8 block"></canvas>
+                </div>
+
+                <!-- Timeline Bar -->
+                <div class="flex items-center gap-3 w-full text-[10px] text-slate-400 font-mono">
+                    <span id="player-time-current">0:00</span>
+                    <div id="player-progress-container" class="h-1.5 flex-grow bg-slate-800 rounded-full cursor-pointer relative overflow-hidden group">
+                        <div id="player-progress" class="h-full bg-brass-gold rounded-full w-0 group-hover:bg-brass-gold-light transition-all duration-75"></div>
+                    </div>
+                    <span id="player-time-duration">2:30</span>
+                </div>
+            </div>
+
+            <!-- Right: Volume Controls -->
+            <div class="hidden md:flex items-center justify-end gap-3 w-1/3">
+                <button id="player-mute" class="text-brass-gold hover:text-brass-gold-light transition cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM16 10a6 6 0 01-6 6v-1.2A4.8 4.8 0 0014.8 10 4.8 4.8 0 0010 5.2V4a6 6 0 016 6z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <input type="range" id="player-volume" min="0" max="100" value="70" 
+                       class="w-24 h-1.5 bg-slate-800 rounded-full appearance-none cursor-pointer accent-brass-gold">
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Detailed History Modal -->
+    <div id="history-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md justify-center items-center p-4">
+        <div class="glass-panel w-full max-w-4xl max-h-[85vh] rounded-3xl border border-white/10 shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div id="modal-banner" class="w-full h-44 bg-slate-900/30 overflow-hidden">
+                <!-- Banner image injected here by JS -->
+            </div>
+            <!-- Modal Header -->
+            <div class="p-6 border-b border-white/5 flex justify-between items-start">
+                <div class="flex items-center gap-4">
+                    <span id="modal-flag" class="text-4xl"></span>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 id="modal-title" class="text-2xl font-bold font-serif text-slate-100">Preußens Gloria</h3>
+                            <span id="modal-translation" class="text-sm text-slate-400 italic">"Prussia's Glory"</span>
+                        </div>
+                        <p id="modal-meta" class="text-xs text-brass-gold mt-1">Johann Gottfried Piefke | 1871</p>
+                    </div>
+                </div>
+                <button id="modal-close" class="p-2 text-slate-400 hover:text-slate-100 bg-white/5 hover:bg-white/10 rounded-full transition cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Modal Content (Scrollable) -->
+            <div class="p-6 md:p-8 overflow-y-auto space-y-8 flex-grow">
+                
+                <!-- History -->
+                <div>
+                    <h4 class="text-xs text-brass-gold font-bold tracking-wider uppercase mb-3">Latar Belakang Sejarah</h4>
+                    <p id="modal-desc" class="text-slate-300 text-sm leading-relaxed whitespace-pre-line">
+                        Sejarah lagu akan muncul di sini...
+                    </p>
+                </div>
+                
+                <!-- Lyrics / Text -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-950/50 p-6 rounded-2xl border border-white/5">
+                    <div>
+                        <h4 class="text-xs text-brass-gold font-bold tracking-wider uppercase mb-3">Lirik Asli / Catatan Musik</h4>
+                        <p id="modal-lyrics-original" class="text-slate-300 text-sm italic leading-relaxed font-serif whitespace-pre-line">
+                            Lirik asli...
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="text-xs text-slate-400 font-bold tracking-wider uppercase mb-3">Terjemahan Indonesia</h4>
+                        <p id="modal-lyrics-translation" class="text-slate-300 text-sm leading-relaxed whitespace-pre-line">
+                            Terjemahan...
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Fun Facts -->
+                <div>
+                    <h4 class="text-xs text-brass-gold font-bold tracking-wider uppercase mb-3">Fakta Menarik & Unik</h4>
+                    <ul id="modal-facts-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Facts list injected via JS -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Modal Footer Action -->
+            <div class="p-6 border-t border-white/5 bg-slate-950/40 flex justify-end">
+                <button id="modal-play-btn" class="px-6 py-3 bg-brass-gold hover:bg-brass-gold-light text-slate-950 font-bold rounded-xl flex items-center gap-2 transition cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                    </svg>
+                    Mainkan Lagu Ini
+                </button>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Script imports -->
+    <script src="./src/js/data.js"></script>
+    <script src="./src/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  
+  --color-imperial-crimson: #5c0620;
+  --color-prussian-blue: #0f1c3f;
+  --color-brass-gold: #c59b27;
+  --color-brass-gold-light: #f6e095;
+  --color-brass-gold-dark: #8e6d15;
+  
+  --animate-wave: wave-pulse 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes wave-pulse {
+  0% { transform: scaleY(0.3); }
+  100% { transform: scaleY(1); }
+}
+
+/* Custom Utilities and Styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply font-sans bg-slate-950 text-slate-100 overflow-x-hidden;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(92, 6, 32, 0.15) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(15, 28, 63, 0.25) 0px, transparent 50%);
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #090d16;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-brass-gold);
+  }
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-panel-hover:hover {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(197, 155, 39, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(197, 155, 39, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Golden text stroke for titles */
+.text-gold-gradient {
+  background: linear-gradient(135deg, var(--color-brass-gold-light) 0%, var(--color-brass-gold) 50%, var(--color-brass-gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
